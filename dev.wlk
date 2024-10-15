@@ -3,6 +3,7 @@ object hector {
     var property image = 'player.png'
     var property position = game.center()
     var property monedas = 0
+    const property plantasVenta = []
 
     method sembrar(plantita) {
         if(game.getObjectsIn(self.position()).size() == 1) {
@@ -10,11 +11,23 @@ object hector {
         }
     }
 
-    method cosechar() {}
-
-    method regar(_planta) {
-        _planta.evoluciona()
+    method regar(plantoide) {
+        plantoide.evoluciona()
     }
+
+    method cosechar(_planta) {
+        if (_planta.esAdulta()){
+            _planta.cosechar()
+            plantasVenta.add(_planta)            
+        } else {
+            game.say(self, "No es adulta!")
+        }
+    }
+
+    method evoluciona() {
+        game.say(self, "me mojeee")
+    }
+
 }
 
 object aspersor {
@@ -22,13 +35,28 @@ object aspersor {
     var property position = game.at(10, 10)
 
     method regar() {
-        if (game.getObjectsIn(self.position().up(1)) == 1) {
+        if (game.getObjectsIn(self.position().up(1)).size() == 1) {
             game.getObjectsIn(self.position().up(1)).get(0).evoluciona()
-        } else if (game.getObjectsIn(self.position().down(1)) == 1) {
+        }
+        if (game.getObjectsIn(self.position().up(1).right(1)).size() == 1) {
+            game.getObjectsIn(self.position().up(1).right(1)).get(0).evoluciona()
+        }
+        if (game.getObjectsIn(self.position().up(1).left(1)).size() == 1) {
+            game.getObjectsIn(self.position().up(1).left(1)).get(0).evoluciona()
+        }
+        if (game.getObjectsIn(self.position().down(1)).size() == 1) {
             game.getObjectsIn(self.position().down(1)).get(0).evoluciona()
-        } else if (game.getObjectsIn(self.position().right(1)) == 1) {
+        }
+        if (game.getObjectsIn(self.position().down(1).right(1)).size() == 1) {
+            game.getObjectsIn(self.position().down(1).right(1)).get(0).evoluciona()
+        }
+        if (game.getObjectsIn(self.position().down(1).left(1)).size() == 1) {
+            game.getObjectsIn(self.position().down(1).left(1)).get(0).evoluciona()
+        }
+        if (game.getObjectsIn(self.position().right(1)).size() == 1) {
             game.getObjectsIn(self.position().right(1)).get(0).evoluciona()
-        } else if (game.getObjectsIn(self.position().left(1)) == 1) {
+        }
+        if (game.getObjectsIn(self.position().left(1)).size() == 1) {
             game.getObjectsIn(self.position().left(1)).get(0).evoluciona()
         }
     }
@@ -44,12 +72,16 @@ class Planta {
         }
     }
 
-    method esGrande() {
+    method esAdulta() {
         return evolucion >= 1
     }
 
     method puedeSembrar(_position) {
         return self.position()
+    }
+
+    method cosechar() {
+      game.removeVisual(self)
     }
 }
 
@@ -69,7 +101,7 @@ class Tomaco inherits Planta() {
         if (evolucion == 0) {
             evolucion += 1
         } else {
-            if (self.position().y().between(0, 18))
+            if (self.position().y().between(0, 18) && (game.getObjectsIn(self.position().up(1)).size() == 0))
             position = self.position().up(1) 
             
         }
@@ -81,6 +113,9 @@ class Tomaco inherits Planta() {
             return 'tomaco.png'
         }
     }     
+    override method esAdulta() {
+      return true
+    }
 }
 
 class Trigo inherits Planta() {
@@ -92,8 +127,8 @@ class Trigo inherits Planta() {
             evolucion += 1
         }
     }
-    override method esGrande() {
-        return evolucion == 3
+    override method esAdulta() {
+        return evolucion >= 2
     }
 
     method image() {
@@ -138,7 +173,19 @@ object config {
         })
 
         keyboard.r().onPressDo({
-            hector.regar(game.getObjectsIn(hector.position()).get(1))
+            if (game.getObjectsIn(hector.position()).size() == 2){
+                hector.regar(game.getObjectsIn(hector.position()).get(1))
+            } else {game.say(hector, "No tengo nada para regar je je je")}
+             
         })
+
+        keyboard.c().onPressDo({
+            if(game.getObjectsIn(hector.position()).size() == 2)
+                hector.cosechar(game.getObjectsIn(hector.position()).get(1))
+            else
+                game.say(hector, "No tengo nada para cosechar")
+        })
+
+        keyboard.s().onPressDo({game.say(hector, hector.plantasVenta().toString())})
     }
 }
