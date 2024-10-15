@@ -4,6 +4,7 @@ object hector {
     var property position = game.center()
     var property monedas = 0
     const property plantasVenta = []
+    const property productos = {"tengo " + self.monedas() + " monedas y " + self.plantasVenta().size() + " para vender"}
 
     method sembrar(plantita) {
         if(game.getObjectsIn(self.position()).size() == 1) {
@@ -26,6 +27,11 @@ object hector {
 
     method evoluciona() {
         game.say(self, "me mojeee")
+    }
+
+    method venderTodo() {
+      monedas = plantasVenta.sum({planta => planta.precio() })
+      plantasVenta.clear()
     }
 
 }
@@ -86,6 +92,8 @@ class Planta {
 }
 
 class Maiz inherits Planta() {
+    var property precio = 150
+
     method image() {
         if (evolucion == 0) {
             return 'corn_baby.png'
@@ -96,6 +104,7 @@ class Maiz inherits Planta() {
 } 
 
 class Tomaco inherits Planta() {
+    var property precio = 80
 
     override method evoluciona() {
         if (evolucion == 0) {
@@ -119,6 +128,17 @@ class Tomaco inherits Planta() {
 }
 
 class Trigo inherits Planta() {
+    var property precio = 100
+
+    method precio() {
+        if(evolucion == 2){
+            return 100
+        } else if(evolucion == 3){
+            return 200
+        } else {
+            return (evolucion - 1 ) * 100
+        }
+    }
 
     override method evoluciona() {
         if (evolucion == 3) {
@@ -186,6 +206,10 @@ object config {
                 game.say(hector, "No tengo nada para cosechar")
         })
 
-        keyboard.s().onPressDo({game.say(hector, hector.plantasVenta().toString())})
+        keyboard.space().onPressDo({game.say(hector, hector.productos().apply())})
+    
+        keyboard.v().onPressDo({hector.venderTodo()})
+
+
     }
 }
