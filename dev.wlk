@@ -6,7 +6,7 @@ object hector {
     var property monedas = 0
 
     method sembrar(plantita) {
-        if(game.getObjectsIn(self.position()).size() == 0) {
+        if(game.getObjectsIn(self.position()).size() == 1) {
             game.addVisual(plantita)
         }
     }
@@ -19,7 +19,7 @@ object hector {
 }
 class Planta {
     var evolucion = 0
-    var property position = null
+    var property position
 
     method evoluciona() {
         if (evolucion == 0) {
@@ -110,13 +110,8 @@ class Trigo inherits Planta() {
 
 object nivel1 {
     method iniciar() {
-        // config.configurarTeclas()
+        config.configurarTeclas()
         game.addVisualCharacter(hector)
-
-
-
-
-
 
         game.start()
     }
@@ -125,18 +120,19 @@ object nivel1 {
 
 object config {
     method configurarTeclas() {
+
         keyboard.m().onPressDo({ 
-            const maiz = new Maiz() 
-            hector.sembrar(maiz) })
+            //const maiz = new Maiz() 
+            hector.sembrar(new Maiz(position = hector.position())) })
         keyboard.t().onPressDo({
-            const trigo = new Trigo()
-            hector.sembrar(trigo)
+            // const trigo = new Trigo()
+            hector.sembrar(new Trigo(position = hector.position()))
         })
         keyboard.o().onPressDo({
-            const tomaco = new Tomaco()
-            hector.sembrar(tomaco)
+            //const tomaco = new Tomaco()
+            hector.sembrar(new Tomaco(position = hector.position()))
         })
 
-        keyboard.r().onpPressDo({})
+        //keyboard.r().onpPressDo({})
     }
 }
