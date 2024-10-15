@@ -1,5 +1,4 @@
 import wollok.game.*
-
 object hector {
     var property image = 'player.png'
     var property position = game.center()
@@ -16,10 +15,25 @@ object hector {
     method regar(_planta) {
         _planta.evoluciona()
     }
-
-
-
 }
+
+object aspersor {
+    var property image = 'aspersor.png'
+    var property position = game.at(10, 10)
+
+    method regar() {
+        if (game.getObjectsIn(self.position().up(1)) == 1) {
+            game.getObjectsIn(self.position().up(1)).get(0).evoluciona()
+        } else if (game.getObjectsIn(self.position().down(1)) == 1) {
+            game.getObjectsIn(self.position().down(1)).get(0).evoluciona()
+        } else if (game.getObjectsIn(self.position().right(1)) == 1) {
+            game.getObjectsIn(self.position().right(1)).get(0).evoluciona()
+        } else if (game.getObjectsIn(self.position().left(1)) == 1) {
+            game.getObjectsIn(self.position().left(1)).get(0).evoluciona()
+        }
+    }
+}
+
 class Planta {
     var evolucion = 0
     var property position
@@ -103,6 +117,8 @@ object nivel1 {
     method iniciar() {
         config.configurarTeclas()
         game.addVisualCharacter(hector)
+        game.addVisual(aspersor)
+        game.onTick(5000, "riega plantas up,down,left,right", {aspersor.regar()})
 
         game.start()
     }
