@@ -16,6 +16,9 @@ object hector {
     method regar(_planta) {
         _planta.evoluciona()
     }
+
+
+
 }
 class Planta {
     var evolucion = 0
@@ -52,7 +55,9 @@ class Tomaco inherits Planta() {
         if (evolucion == 0) {
             evolucion += 1
         } else {
-            self.position().x() + 1
+            if (self.position().y().between(0, 18))
+            position = self.position().up(1) 
+            
         }
     }
     method image() {
@@ -94,20 +99,6 @@ class Trigo inherits Planta() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 object nivel1 {
     method iniciar() {
         config.configurarTeclas()
@@ -122,17 +113,16 @@ object config {
     method configurarTeclas() {
 
         keyboard.m().onPressDo({ 
-            //const maiz = new Maiz() 
             hector.sembrar(new Maiz(position = hector.position())) })
         keyboard.t().onPressDo({
-            // const trigo = new Trigo()
             hector.sembrar(new Trigo(position = hector.position()))
         })
         keyboard.o().onPressDo({
-            //const tomaco = new Tomaco()
             hector.sembrar(new Tomaco(position = hector.position()))
         })
 
-        //keyboard.r().onpPressDo({})
+        keyboard.r().onPressDo({
+            hector.regar(game.getObjectsIn(hector.position()).get(1))
+        })
     }
 }
