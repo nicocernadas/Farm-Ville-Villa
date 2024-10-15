@@ -4,6 +4,7 @@ object hector {
     var property image = 'player.png'
     var property position = game.center()
     var property monedas = 0
+    const property plantasVenta = []
 
     method sembrar(plantita) {
         if(game.getObjectsIn(self.position()).size() == 1) {
@@ -17,7 +18,15 @@ object hector {
         _planta.evoluciona()
     }
 
+    method cosechar(_planta) {
+        if (_planta.esAdulta()){
+            _planta.cosechar()
+            plantasVenta.add(_planta)            
+        } else {
+            game.say(self, "No es adulta!")
+        }
 
+    }
 
 }
 class Planta {
@@ -30,12 +39,16 @@ class Planta {
         }
     }
 
-    method esGrande() {
+    method esAdulta() {
         return evolucion >= 1
     }
 
     method puedeSembrar(_position) {
         return self.position()
+    }
+
+    method cosechar() {
+      game.removeVisual(self)
     }
 }
 
@@ -67,6 +80,9 @@ class Tomaco inherits Planta() {
             return 'tomaco.png'
         }
     }     
+    override method esAdulta() {
+      return true
+    }
 }
 
 class Trigo inherits Planta() {
@@ -78,8 +94,8 @@ class Trigo inherits Planta() {
             evolucion += 1
         }
     }
-    override method esGrande() {
-        return evolucion == 3
+    override method esAdulta() {
+        return evolucion >= 2
     }
 
     method image() {
@@ -124,5 +140,14 @@ object config {
         keyboard.r().onPressDo({
             hector.regar(game.getObjectsIn(hector.position()).get(1))
         })
+
+        keyboard.c().onPressDo({
+            if(game.getObjectsIn(hector.position()).size() == 2)
+                hector.cosechar(game.getObjectsIn(hector.position()).get(1))
+            else
+                game.say(hector, "No tengo nada para cosechar")
+        })
+
+        keyboard.s().onPressDo({game.say(hector, hector.plantasVenta().toString())})
     }
 }

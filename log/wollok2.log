@@ -464,3 +464,6 @@
 {"level":"info","message":"⌛ Validating main.wpgm","timeElapsed":312,"timestamp":"2024-10-15T21:38:45.435Z"}
 {"level":"info","message":"⌛ Validating dev.wlk","timeElapsed":135,"timestamp":"2024-10-15T21:38:45.574Z"}
 {"error":["wollok.lang.MessageNotUnderstoodException: a Key does not understand onpPressDo(arg 0)","  at dev.config.configurarTeclas() [dev.wlk:111]\r","  at dev.nivel1.iniciar() [dev.wlk:101]\r","  at main.juego [main.wpgm:4]"],"level":"info","message":"👾 Game executed main.juego on c:\\Users\\Dana\\Desktop\\DANA_2024\\Algoritmo_I\\tp7_granja\\Farm-Ville-Villa","ok":false,"timeElapsed":1408,"timestamp":"2024-10-15T21:58:02.781Z"}
+{"exitCode":"SIGHUP","level":"info","message":"👾 Game executed main.juego on /home/algo/Documentos/wollok24/Farm-Ville-Villa","timeElapsed":79882,"timestamp":"2024-10-15T22:26:56.176Z"}
+{"exitCode":"SIGHUP","level":"info","message":"👾 Game executed main.juego on /home/algo/Documentos/wollok24/Farm-Ville-Villa","timeElapsed":80340,"timestamp":"2024-10-15T22:28:17.496Z"}
+{"exitCode":"SIGHUP","level":"info","message":"👾 Game executed main.juego on /home/algo/Documentos/wollok24/Farm-Ville-Villa","timeElapsed":81738,"timestamp":"2024-10-15T22:29:39.948Z"}
