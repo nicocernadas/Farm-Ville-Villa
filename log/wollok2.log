@@ -463,3 +463,4 @@
 {"level":"info","message":"⌛ Building environment","timeElapsed":201,"timestamp":"2024-10-15T21:38:45.119Z"}
 {"level":"info","message":"⌛ Validating main.wpgm","timeElapsed":312,"timestamp":"2024-10-15T21:38:45.435Z"}
 {"level":"info","message":"⌛ Validating dev.wlk","timeElapsed":135,"timestamp":"2024-10-15T21:38:45.574Z"}
+{"error":["wollok.lang.MessageNotUnderstoodException: a Key does not understand onpPressDo(arg 0)","  at dev.config.configurarTeclas() [dev.wlk:111]\r","  at dev.nivel1.iniciar() [dev.wlk:101]\r","  at main.juego [main.wpgm:4]"],"level":"info","message":"👾 Game executed main.juego on c:\\Users\\Dana\\Desktop\\DANA_2024\\Algoritmo_I\\tp7_granja\\Farm-Ville-Villa","ok":false,"timeElapsed":1408,"timestamp":"2024-10-15T21:58:02.781Z"}
