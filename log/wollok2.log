@@ -213,3 +213,4 @@
 {"level":"info","message":"⌛ Building environment","timeElapsed":157,"timestamp":"2024-10-09T00:18:11.772Z"}
 {"level":"info","message":"⌛ Validating dev.wlk","timeElapsed":128,"timestamp":"2024-10-09T00:18:15.123Z"}
 {"level":"info","message":"onRequest - completionItem/resolve","timestamp":"2024-10-09T00:18:54.026Z"}
+{"error":["wollok.lang.MessageNotUnderstoodException: a Key does not understand onpPressDo(arg 0)","  at dev.config.configurarTeclas() [dev.wlk:135]\r","  at dev.nivel1.iniciar() [dev.wlk:119]\r","  at main.juego [main.wpgm:4]"],"level":"info","message":"👾 Game executed main.juego on c:\\Users\\nicol\\OneDrive\\Documentos\\UNSAM\\2°_CUAT_2024\\Algoritmos_I\\Farm-Ville-Villa","ok":false,"timeElapsed":443,"timestamp":"2024-10-15T21:57:13.754Z"}
