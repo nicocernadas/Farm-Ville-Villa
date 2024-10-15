@@ -13,8 +13,8 @@ object hector {
 
     method cosechar() {}
 
-    method regar(_planta) {
-        _planta.evoluciona()
+    method regar(plantoide) {
+        plantoide.evoluciona()
     }
 
 
@@ -122,7 +122,10 @@ object config {
         })
 
         keyboard.r().onPressDo({
-            hector.regar(game.getObjectsIn(hector.position()).get(1))
+            if (game.getObjectsIn(hector.position()).size() == 2){
+                hector.regar(game.getObjectsIn(hector.position()).get(1))
+            } else {game.say(hector, "No tengo nada para regar mogul jes jes jes")}
+             
         })
     }
 }
