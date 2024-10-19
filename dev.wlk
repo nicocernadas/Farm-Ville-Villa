@@ -1,4 +1,5 @@
 import wollok.game.*
+
 object hector {
     var property image = 'player.png'
     var property position = game.center()
@@ -11,11 +12,9 @@ object hector {
             game.addVisual(plantita)
         }
     }
-
     method regar(plantoide) {
         plantoide.evoluciona()
     }
-
     method cosechar(_planta) {
         if (_planta.esAdulta()){
             _planta.cosechar()
@@ -24,17 +23,15 @@ object hector {
             game.say(self, "No es adulta!")
         }
     }
-
     method evoluciona() {
         game.say(self, "me mojeee")
     }
-
     method venderTodo() {
-      monedas = plantasVenta.sum({planta => planta.precio() })
-      plantasVenta.clear()
+        monedas = plantasVenta.sum({planta => planta.precio() })
+        plantasVenta.clear()
     }
-
 }
+
 
 object aspersor {
     var property image = 'aspersor.png'
@@ -68,6 +65,7 @@ object aspersor {
     }
 }
 
+
 class Planta {
     var evolucion = 0
     var property position
@@ -77,19 +75,17 @@ class Planta {
             evolucion += 1
         }
     }
-
     method esAdulta() {
         return evolucion >= 1
     }
-
     method puedeSembrar(_position) {
         return self.position()
     }
-
     method cosechar() {
-      game.removeVisual(self)
+        game.removeVisual(self)
     }
 }
+
 
 class Maiz inherits Planta() {
     var property precio = 150
@@ -102,6 +98,7 @@ class Maiz inherits Planta() {
         }
     }
 } 
+
 
 class Tomaco inherits Planta() {
     var property precio = 80
@@ -123,9 +120,10 @@ class Tomaco inherits Planta() {
         }
     }     
     override method esAdulta() {
-      return true
+        return true
     }
 }
+
 
 class Trigo inherits Planta() {
     var property precio = 100
@@ -139,7 +137,6 @@ class Trigo inherits Planta() {
             return (evolucion - 1 ) * 100
         }
     }
-
     override method evoluciona() {
         if (evolucion == 3) {
             evolucion = 0
@@ -150,22 +147,18 @@ class Trigo inherits Planta() {
     override method esAdulta() {
         return evolucion >= 2
     }
-
     method image() {
-      if(evolucion == 0) {
-        return 'wheat_0.png'
-      } else if (evolucion == 1) {
-        return 'wheat_1.png'
-      } else if (evolucion == 2) {
-        return 'wheat_2.png'
-      } else {
-        return 'wheat_3.png'
-      }
+        if(evolucion == 0) {
+            return 'wheat_0.png'
+        } else if (evolucion == 1) {
+            return 'wheat_1.png'
+        } else if (evolucion == 2) {
+            return 'wheat_2.png'
+        } else {
+            return 'wheat_3.png'
+        }
     }
 }
-
-
-
 
 
 object nivel1 {
@@ -186,30 +179,22 @@ object config {
         keyboard.m().onPressDo({ 
             hector.sembrar(new Maiz(position = hector.position())) })
         keyboard.t().onPressDo({
-            hector.sembrar(new Trigo(position = hector.position()))
-        })
+            hector.sembrar(new Trigo(position = hector.position()))})
         keyboard.o().onPressDo({
-            hector.sembrar(new Tomaco(position = hector.position()))
-        })
+            hector.sembrar(new Tomaco(position = hector.position()))})
 
         keyboard.r().onPressDo({
             if (game.getObjectsIn(hector.position()).size() == 2){
                 hector.regar(game.getObjectsIn(hector.position()).get(1))
-            } else {game.say(hector, "No tengo nada para regar je je je")}
-             
-        })
+            } else {game.say(hector, "No tengo nada para regar je je je")}})
 
         keyboard.c().onPressDo({
             if(game.getObjectsIn(hector.position()).size() == 2)
                 hector.cosechar(game.getObjectsIn(hector.position()).get(1))
             else
-                game.say(hector, "No tengo nada para cosechar")
-        })
+                game.say(hector, "No tengo nada para cosechar")})
 
         keyboard.space().onPressDo({game.say(hector, hector.productos().apply())})
-    
         keyboard.v().onPressDo({hector.venderTodo()})
-
-
     }
 }

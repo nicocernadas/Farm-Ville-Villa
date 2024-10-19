@@ -6,6 +6,5 @@ program juego {
     game.height(20)
     game.ground('ground.png')
     nivel1.iniciar()   
-    
 
 }
